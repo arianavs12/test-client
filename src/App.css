@@ -1,0 +1,11 @@
+.card{
+  background-color: rgb(231, 101, 188);
+}
+
+.formulario{
+  text-align: center;
+  margin-top: 5%;
+  display: flex;
+  justify-content: space-between;
+  margin: 8%;
+}

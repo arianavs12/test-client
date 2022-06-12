@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
+import axios from "axios";
 import '../App.css'
 
 
@@ -27,7 +28,13 @@ function User() {
     
     const send = (e)=>{
         e.preventDefault();
-        console.log(datos.nombre + ' ' + datos.lastName + ' ' + datos.month + '' + datos.phone)
+        //console.log(datos.nombre + ' ' + datos.lastName + ' ' + datos.month + '' + datos.phone)
+        axios.post(`https://coconube.herokuapp.com/all/create`, datos)
+    .then( datos => {
+      console.log(datos)
+    //   navigate("/allusers")
+    })
+    .catch( error => console.log(error))
     };
 
 

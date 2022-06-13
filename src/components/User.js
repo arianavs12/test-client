@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react'
-//import { useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap'
 import axios from "axios";
 import '../App.css'
@@ -16,7 +15,7 @@ function User() {
         month:"",
         year:"",
         email:"",
-        phone:""
+        phone:"",
     });
 
     const [show, setShow] = useState(true);
@@ -34,14 +33,13 @@ function User() {
         axios.post(`https://coconube.herokuapp.com/all/create`, datos)
     .then( datos => {
       console.log(datos)
-      //navigate("/users")
     })
     .catch( error => console.log(error))
     };
 
 
   return (
-<Fragment key={datos.email}>
+<Fragment>
     <div>
         <Form onSubmit={send} className='formulario'>
             <div className='name'>
@@ -124,7 +122,7 @@ function User() {
                     type="text" 
                     placeholder="Correo electrónico"
                     name='email'
-                    onChange={handleInputChange}
+                    onChange={handleInputChange} 
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -140,11 +138,13 @@ function User() {
                     <h4>{datos.phone}</h4>
                 </div>
                 <Button 
-                style={{margin: 8}} 
-                variant="primary" 
-                type='submit'
-                onClick={()=> setShow(false) }
-                >Iniciar</Button>
+                    style={{margin: 8}} 
+                    variant="primary" 
+                    type='submit'
+                    onClick={()=> setShow(false) }
+                    >
+                    Iniciar
+                </Button>
                 {show === true ?
                 <h4>Aún no registras tus datos</h4> :  
                 <div className='card'> 
@@ -158,7 +158,7 @@ function User() {
                     <div>{datos.year}</div>
                     <div>{datos.email}</div>
                     <div>{datos.phone}</div>
-                </div>  }
+                </div> }
             </div>
         </Form>
     </div>

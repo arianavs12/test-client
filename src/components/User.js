@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react'
+//import { useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap'
 import axios from "axios";
 import '../App.css'
@@ -18,6 +19,8 @@ function User() {
         phone:""
     });
 
+    const [show, setShow] = useState(true);
+
     const handleInputChange = (event) => {
         setDatos({
             ...datos,
@@ -28,11 +31,10 @@ function User() {
     
     const send = (e)=>{
         e.preventDefault();
-        //console.log(datos.nombre + ' ' + datos.lastName + ' ' + datos.month + '' + datos.phone)
         axios.post(`https://coconube.herokuapp.com/all/create`, datos)
     .then( datos => {
       console.log(datos)
-    //   navigate("/allusers")
+      //navigate("/users")
     })
     .catch( error => console.log(error))
     };
@@ -87,7 +89,7 @@ function User() {
                 <h4>¿Cuál es tu fecha de nacimiento?</h4>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Control 
-                    type="text" 
+                    type="number" 
                     placeholder="Dia" 
                     name='day'
                     onChange={handleInputChange} 
@@ -103,7 +105,7 @@ function User() {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Control 
-                    type="text" 
+                    type="number" 
                     placeholder="Año"
                     name='year'
                     onChange={handleInputChange} 
@@ -119,7 +121,7 @@ function User() {
                 <h4>Datos de contacto</h4>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Control 
-                    type="email" 
+                    type="text" 
                     placeholder="Correo electrónico"
                     name='email'
                     onChange={handleInputChange}
@@ -137,18 +139,26 @@ function User() {
                     <h4>{datos.email}</h4>
                     <h4>{datos.phone}</h4>
                 </div>
-                <Button style={{margin: 8}} variant="primary" type='submit'>Iniciar</Button>
-                <div className='card'>
-                    <h4>{datos.nombre}</h4>
-                    <h4>{datos.secondName}</h4>
-                    <h4>{datos.lastName}</h4>
-                    <h4>{datos.secondLastName}</h4>
-                    <h4>{datos.day}</h4>
-                    <h4>{datos.month}</h4>
-                    <h4>{datos.year}</h4>
-                    <h4>{datos.email}</h4>
-                    <h4>{datos.phone}</h4>
-                </div> 
+                <Button 
+                style={{margin: 8}} 
+                variant="primary" 
+                type='submit'
+                onClick={()=> setShow(false) }
+                >Iniciar</Button>
+                {show === true ?
+                <h4>Aún no registras tus datos</h4> :  
+                <div className='card'> 
+                    <h4>Tus datos guardados:</h4>
+                    <div>{datos.nombre}</div>
+                    <div>{datos.secondName}</div>
+                    <div>{datos.lastName}</div>
+                    <div>{datos.secondLastName}</div>
+                    <div>{datos.day}</div>
+                    <div>{datos.month}</div>
+                    <div>{datos.year}</div>
+                    <div>{datos.email}</div>
+                    <div>{datos.phone}</div>
+                </div>  }
             </div>
         </Form>
     </div>
